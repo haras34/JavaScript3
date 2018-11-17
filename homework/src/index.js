@@ -1,5 +1,26 @@
 'use strict';
 
+let dropdownList = document.getElementById('repos') ;
+function dropdownListGen(data){
+  let option; 
+  for (let i = 0; i < data.length; i++) {
+  option = document.createElement("option");
+  option.text = data[i].name;
+  option.value = i;
+  dropdownList.add(option);
+}
+  return dropdownList;
+  
+}
+
+let info = document.getElementById('root'); 
+function selectedRepoInfo(data){
+let infoArr=[];
+for (let i = 0; i < data.length; i++) {
+  infoArr.push(data[document.getElementById('repos').name].description);
+}
+}
+
 {
   function fetchJSON(url, cb) {
     const xhr = new XMLHttpRequest();
@@ -36,12 +57,15 @@
       if (err) {
         createAndAppend('div', root, { text: err.message, class: 'alert-error' });
       } else {
-        createAndAppend('pre', root, { text: JSON.stringify(data, null, 2) });
-      }
+        dropdownListGen(data);
+       }
     });
   }
+
 
   const HYF_REPOS_URL = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
   window.onload = () => main(HYF_REPOS_URL);
 }
+
+
